@@ -1,0 +1,76 @@
+
+mes23.log
+
+새 글 작성
+thumbnail
+mes23.log
+
+새 글 작성
+thumbnail
+2022/01/01/WIL
+통계
+수정
+삭제
+mes23·13분 전
+0
+이번 주자를 진행하며 내가 가장 신경 쓴 부분
+기술에 대한 정리
+
+WebRtc(Web real time Coummunication on Web Broswers)
+WebRTC (Web Real-Time Communication)는 웹 브라우저 간에 플러그인의 도움 없이 서로 통신할 수 있도록 설계된 API이다. W3C 에서 제시된 초안이며, 음성 통화, 영상 통화, P2P 파일 공유 등으로 활용될 수 있다.
+
+Mesh
+
+미디어 정보를 직접 peer(클라이언트) 끼리 connection 을 맺어 주고 받는다
+서버는 peer 끼리 connection 을 맺기 위한 시그널 정보를 주고 받을 수 있게 돕는 역할을 한다.
+peer 에서 직접 미디어 정보를 주고 받기 때문에 peer 에게 부담이 될 수 있다.
+1:1 에서 가장 많이 사용되는 방식, 1:N, N:M 도 가능하나 당연히 클라이언트에게 더욱 더 부담이 된다.
+내 코드에서 사용된 방식으로 나는 1:1 만 구현하였다.
+SFU
+
+peer 의 부하는 mesh 에 비해서 줄어들고, 그만큼 서버가 대신하여 부담을 갖는다.
+1개의 upstream 과 N 개의 downstream 을 갖는 구조이다.
+미디어 서버가 필요하다!!!
+MCU
+
+peer 의 부하가 가장 적다 -> 당연히 서버의 부하는 그만큼 커진다
+1 개의 upstream 과 1 개의 downstream 을 갖는 구조
+서버에서 peer 의 스트림을 모아 인코딩&&디코딩 모두를 하기 때문에 서버가 좋아야한다.
+역시 미디어 서버 필수!!
+WebRTC 서버를 제대로 구축하기 위해서는 기본적으로 4가지의 서버가 필요하다. 시그널링 서버, stun 서버, turn 서버, 미디어 서버이다.
+
+MediaStream
+카메라와 마이크 등의 데이터 스트림 접근
+
+RTCPeerConnection
+암호화 및 대역폭 관리 및 오디오, 비디오의 연결
+
+RTCDataChannel
+일반적인 데이터의 P2P 통신
+
+STUN (Session Traversal Utilities for NAT )
+Session Traversal Utilities for NAT (STUN)는 당신의 공재적 주소(Public Address)를 발견하거나 Peer 간의 직접 연결을 막는 등의 라우터의 제한을 결정하는 프로토콜 입니다. 클라이언트는 인터넷을 통해 클라이언트의 공개 주소와 라우터의 NAT 뒤에 있는 클라이언트가 접근 가능 한지에 대한 답변을 위한 요청을 STUN 서버에 보냅니다.
+
+NAT(Network Address Translation)
+Network Address Translation (NAT)는 단말에 공개 IP 주소를 할당하기 위해 사용됩니다. 라우터는 공개 IP 주소를 갖고 있고 모든 단말들을 라우터에 연결되어 있으며 비공개 IP 주소(Private IP Address)를 갖고 있습니다.
+요청은 단말의 비공개 주소로부터 라우터의 공개 주소와 유일한 포트를 기반으로 번역될 것 입니다. 이러한 경유로 각각의 단말이 유일한 공개 IP 없이 인터넷 상에 검색 될 수 있는 방법입니다.
+
+어떠한 라우터들은 네트워크에 연결할수 있는 제한을 갖고 있습니다. 따라서 STUN서버에 의해 공개 IP주소를 발견한다고 해도 모두가 연결을 할수 있다는 것은 아닙니다. 이를 위해 TURN이 필요합니다.
+
+TURN(Traversal Using Relays around NAT)
+몇몇의 라우터들은 Symmetric NAT이라고 불리우는 제한을 위한 NAT을 채용하고 있습니다. 이 말은 peer들이 오직 이전에 연결한 적 있는 연결들만 허용한다는 것입니다.
+Traversal Using Relays around NAT (TURN) 은 TURN 서버와 연결하고 모든 정보를 그 서버에 전달하는 것으로 Symmetric NAT 제한을 우회하는 것을 의미합니다.
+이를 위해 TURN 서버와 연결을 한 후 모든 peer들에게 저 서버에 모든 패킷을 보내고 다시 나에게 전달해달라고 해야 합니다. 이것은 명백히 오버헤드가 발생하므로 이 방법은 다른 대안이 없을 경우만 사용하게 됩니다.
+
+참고자료
+https://terianp.tistory.com/178
+https://medium.com/@hyun.sang/webrtc-webrtc%EB%9E%80-43df68cbe511
+
+profile
+suye 22
+이전 포스트
+2022/12/25 협업 느 낀점
+0개의 댓글
+댓글을 작성하세요
+댓글 작성
+Powered by GraphCDN, the GraphQL CDN
